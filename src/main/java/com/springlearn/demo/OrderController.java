@@ -2,6 +2,7 @@ package com.springlearn.demo;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +34,10 @@ public class OrderController {
     @GetMapping("/keseho")
     public String kesoho(@RequestParam String how) {
         return "hola amigo kese ho " + how +"!";
+    }
+    @GetMapping ("/greet1/{name}")
+    public String greet1(@PathVariable String name){
+        return "hello " + name; 
     }
     
     
