@@ -1,12 +1,15 @@
 package com.springlearn.demo;
 
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 
 
@@ -46,10 +49,31 @@ public class OrderController {
         return "Hello " + user.getName() + ", age: " + user.getAge();
     }
     @PostMapping("/student")
-    public String createStudnet(@RequestBody Student student) {
+    public String createStudent(@RequestBody Student student) {
         return "Hello " + student.getStudentName() + ", Enrollment No: " + student.getEnrollment();
     }
-    
+    @PutMapping("/student/enrollment/{Enrollment}")
+    public String putEnrollment(@PathVariable int Enrollment) {
+        
+        return "Student " + Enrollment + " updated!";
+    }
+    @PutMapping("student/name/{studentName}")
+    public String putStudentName(@PathVariable String studentName){
+        return "Hello " + studentName;
+    }
+    @PutMapping("student/{Enrollment}")
+    public String updateStudent(@PathVariable int Enrollment, @RequestBody Student student) {
+        
+        return "Student " + student.getStudentName() + ", EnrollmentNo: " + student.getEnrollment();
+    }
+
+    @DeleteMapping("/student/{Enrollment}")
+    public String deleteStudent(@PathVariable int Enrollment){
+
+        return "Student " + Enrollment + " deleted!";
+
+    }
+
         
     
 }
