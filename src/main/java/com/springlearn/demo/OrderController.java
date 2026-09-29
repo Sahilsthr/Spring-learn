@@ -1,6 +1,9 @@
 package com.springlearn.demo;
 
 
+
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,9 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-
-
 
 
 
@@ -49,9 +49,11 @@ public class OrderController {
         return "Hello " + user.getName() + ", age: " + user.getAge();
     }
     @PostMapping("/student")
-    public String createStudent(@RequestBody Student student) {
-        return "Hello " + student.getStudentName() + ", Enrollment No: " + student.getEnrollment();
-    }
+    public ResponseEntity<String> createStudent(@RequestBody Student student){
+        return ResponseEntity
+                            .status(201)
+                            .body("Hello " + student.getStudentName() + ", EnrollmentNo: " + student.getEnrollment());
+    }   
     @PutMapping("/student/enrollment/{Enrollment}")
     public String putEnrollment(@PathVariable int Enrollment) {
         
@@ -74,6 +76,39 @@ public class OrderController {
 
     }
 
+    //ResponseEntity
+    @GetMapping("/student")
+    public ResponseEntity<String> getStudent(){
+        return ResponseEntity.ok("student found!");
+    }
+
+   @GetMapping("/student/{id}")
+    public ResponseEntity<String> studEntity(@PathVariable int id) {
+
+        if (id == 1) {
+            return ResponseEntity.ok("Student found!");
+        }
         
-    
+
+        // return ResponseEntity.notFound().build();
+        return ResponseEntity.status(404).body("Not Found!");
+    }
+    @GetMapping("/student/dto")
+    public ResponseEntity<studentDTO>  getStudentDTO(){
+        studentDTO student = new studentDTO();
+        student.setEnrollment(1234);
+        student.setStudentName("Sahil Suthar");
+
+        return ResponseEntity.ok(student);
+
+    }
+    @PostMapping("student/dto")
+    public ResponseEntity<Student> addStudent(@RequestBody studentDTO dto) {
+        Student student = new Student();
+        student.setEnrollment(dto.getEnrollment());
+        student.setStudentName(dto.getStudentName());
+
+        return ResponseEntity.ok(student);
+    }
+        
 }
