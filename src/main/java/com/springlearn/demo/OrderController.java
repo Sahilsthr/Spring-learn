@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 
 
 @RestController
@@ -103,12 +105,14 @@ public class OrderController {
 
     }
     @PostMapping("student/dto")
-    public ResponseEntity<Student> addStudent(@RequestBody studentDTO dto) {
+    public ResponseEntity<Student> addStudent(@Valid @RequestBody studentDTO dto) {
         Student student = new Student();
         student.setEnrollment(dto.getEnrollment());
         student.setStudentName(dto.getStudentName());
 
         return ResponseEntity.ok(student);
     }
+
+    
         
 }

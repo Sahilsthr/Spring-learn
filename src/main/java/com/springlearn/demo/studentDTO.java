@@ -1,8 +1,13 @@
 package com.springlearn.demo;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 public class studentDTO {
+    @NotBlank(message = "Name cannot be empty.")
     private String studentName;
+    @Positive(message = "Enrollment number must be positive.")
     private int enrollment;
+
 
     public String getStudentName(){
         return studentName;
